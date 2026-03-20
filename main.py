@@ -4,8 +4,7 @@ import json
 import os
 from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain.prompts import PromptTemplate
-
+from langchain_core.prompts import PromptTemplate
 # Load variables from .env file
 load_dotenv()
 GEMINI_API_KEY = os.getenv("GOOGLE_API_KEY")
@@ -22,7 +21,7 @@ def extract_text_from_pdf(uploaded_file):
 
 def analyze_with_gemini(resume_text, job_desc):
     llm = ChatGoogleGenerativeAI(
-        model="gemini-1.5-flash",
+        model="gemini-2.5-flash",
         google_api_key=GEMINI_API_KEY,
         temperature=0
     )
