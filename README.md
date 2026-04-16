@@ -22,7 +22,8 @@ This tool is designed for both job seekers looking to optimize their resumes for
 
 ## 🚀 Live Demo
 
-*(Placeholder: Link to your deployed Streamlit Community Cloud app here)*
+[Launch KhomDev Resume Intelligence Live](https://khomdev-resume-87824241220.us-central1.run.app)
+*(Hosted continuously on Google Cloud Run)*
 
 ## 🛠️ Technology Stack
 
