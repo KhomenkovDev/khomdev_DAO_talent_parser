@@ -10,43 +10,51 @@ from langchain_core.prompts import PromptTemplate
 from pathlib import Path
 
 # --- Configuration & Styling ---
-st.set_page_config(page_title="AI Resume Analyzer", page_icon="📄", layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title="Web3 Talent DAO Parser", page_icon="🌐", layout="wide", initial_sidebar_state="expanded")
 
 # Serious Minimalistic Design CSS
 st.markdown("""
 <style>
     /* Global Font & Spacing Constraints */
     html, body, [class*="css"]  {
-        font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-family: 'Inter', sans-serif;
+        background-color: #05050A !important;
+        color: #F9FAFB !important;
     }
     
     /* Clean headers */
     h1, h2, h3 {
-        font-weight: 600 !important;
-        color: #1E1E1E;
+        font-family: 'Outfit', sans-serif !important;
+        font-weight: 700 !important;
+        color: #F9FAFB !important;
+        background: linear-gradient(135deg, #fff 0%, #A855F7 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
     
-    /* Dark mode override for text elements if system is dark */
-    @media (prefers-color-scheme: dark) {
-        h1, h2, h3, p, span {
-            color: #E0E0E0 !important;
-        }
-    }
-
     /* Minimalist metric cards */
     div[data-testid="metric-container"] {
-        background-color: transparent;
-        border: 1px solid #E0E0E0;
-        border-radius: 8px;
-        padding: 1rem;
-        box-shadow: none;
-    }
-    @media (prefers-color-scheme: dark) {
-        div[data-testid="metric-container"] {
-            border-color: #333333;
-        }
+        background-color: rgba(18, 18, 42, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 1.5rem;
     }
     
+    /* Sidebar styling */
+    section[data-testid="stSidebar"] {
+        background-color: #0A0A1F !important;
+        border-right: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* Buttons */
+    .stButton>button {
+        background: linear-gradient(45deg, #A855F7, #22D3EE) !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 8px !important;
+        font-weight: 600 !important;
+    }
+
     /* Hide default streamlit marks */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
@@ -89,24 +97,24 @@ def analyze_with_gemini(resume_text, job_desc, api_key):
     )
 
     template = """
-    You are an expert ATS (Applicant Tracking System) and professional Technical Recruiter. 
-    Analyze the provided Resume against the Job Description (JD).
+    You are an expert Web3 Recruiter and Talent DAO Governance Specialist. 
+    Analyze the provided Contributor Profile / Resume against the DAO Project Requirements (JD).
     
     Return ONLY a valid JSON object. Do not include markdown blocks like ```json ... ```, just the raw JSON object.
     Ensure the JSON schema strictly follows the structure below:
     {{
-        "match_score": <int between 0 and 100 representing the exact match percentage>,
-        "matched_skills": [<array of explicit skills found in both>],
-        "missing_skills": [<array of critical skills in JD but missing in Resume>],
-        "ats_keywords": [<array of important keywords for this specific role>],
-        "candidate_summary": "<A brief, professional 2-3 sentence summary of the candidate's fit>",
-        "improvement_tips": [<array of 3-5 highly actionable pieces of advice to improve the resume for this JD>]
+        "match_score": <int between 0 and 100 representing the exact match percentage for this Web3 role>,
+        "matched_skills": [<array of explicit Web3 skills found, e.g. Solidity, DeFi, Governance>],
+        "missing_skills": [<array of critical Web3 skills missing, e.g. Ethers.js, Rust, Zero-Knowledge>],
+        "ats_keywords": [<array of important on-chain/off-chain keywords for this DAO project>],
+        "candidate_summary": "<A brief, professional 2-3 sentence summary of the candidate's Web3 expertise and DAO fit>",
+        "improvement_tips": [<array of 3-5 highly actionable pieces of advice to improve the profile for this Web3 role>]
     }}
 
-    RESUME:
+    PROFILE:
     {resume_content}
 
-    JD:
+    DAO PROJECT REQS:
     {job_content}
     """
 
@@ -178,13 +186,13 @@ def generate_markdown_report(result, job_desc):
 
 # Sidebar
 with st.sidebar:
-    st.title("AI Resume Analyzer")
+    st.title("Web3 Talent DAO Parser")
     st.markdown("---")
     st.markdown("""
     **Instructions:**
-    1. Paste the target Job Description.
-    2. Upload your Resume (PDF format).
-    3. Run the analysis.
+    1. Paste the target DAO Project Requirements.
+    2. Upload the Contributor Profile (PDF format).
+    3. Run the Web3 Talent analysis.
     """)
     st.markdown("---")
     st.markdown("### Settings")
@@ -194,17 +202,17 @@ with st.sidebar:
     st.caption("Designed with a serious minimalist aesthetic.")
 
 # Main Body
-st.title("Resume Fit Analysis")
-st.markdown("Evaluate candidate profiles against job requirements using advanced Language Models.")
+st.title("Web3 Contributor Fit Analysis")
+st.markdown("Evaluate Web3 talent and DAO contributor profiles against project requirements using AI.")
 
 col1, col2 = st.columns(2, gap="large")
 
 with col1:
-    st.markdown("#### Job Description")
-    job_desc = st.text_area("Paste the job requirements here", height=250, label_visibility="collapsed", placeholder="E.g., We are looking for a Software Engineer with 3+ years of Python experience...")
+    st.markdown("#### DAO Project Requirements")
+    job_desc = st.text_area("Paste the requirements here", height=250, label_visibility="collapsed", placeholder="E.g., We are looking for a Smart Contract Engineer with experience in DeFi and DAO Governance...")
 
 with col2:
-    st.markdown("#### Candidate Resume")
+    st.markdown("#### Contributor Profile / Resume")
     uploaded_file = st.file_uploader("Upload PDF document", type=["pdf"], label_visibility="collapsed")
 
 
