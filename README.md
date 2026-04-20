@@ -1,4 +1,5 @@
 # Web3 Talent DAO Profile Parser 🌐
+![DAO Talent Parser](screenshots/Screenshot%202026-04-19%20at%2020.20.13.png)
 
 High-performance parser for Web3 contributors and DAO recruitment. Match candidates with on-chain project requirements using AI.
 
